@@ -9,16 +9,20 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
+import os
+
 BOT_NAME = 'scraping_ebay'
 
 SPIDER_MODULES = ['scraping_ebay.spiders']
 NEWSPIDER_MODULE = 'scraping_ebay.spiders'
 
+CSV_LINKS_PATH = os.getenv("CSV_LINKS_PATH", "../EBay_links_output.csv")
+IMAGES_STORE = os.getenv("IMAGES_STORE", "./downloaded_images")
+
 #ITEM_PIPELINES = {'scraping_ebay.pipelines.myImagePipeline': 2}
 ITEM_PIPELINES = {'scraping_ebay.pipelines.customImagePipeline': 1}
 #ITEM_PIPELINES = {'scraping_ebay.pipelines.ScrapingEbayPipeline': 1}
 #ITEM_PIPELINES = {'scraping_ebay.pipelines.customImagePipeline': 2}
-IMAGES_STORE = 'local'
 FILES_STORE = 'files'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'scraping_ebay (+http://www.yourdomain.com)'

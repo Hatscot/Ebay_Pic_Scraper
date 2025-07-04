@@ -36,10 +36,9 @@ class customImagePipeline(ImagesPipeline):
         
     
     def file_path(self, request, response=None, info=None):
-        file_name = request.meta.get('File_number')
-        dir_name = request.meta.get('dir')
-        
-        return f"Images/{dir_name}/{file_name}.jpg"
+        sw = request.meta.get('dir')
+        num = request.meta.get('File_number') + 1
+        return f"{sw}/SW{sw}_{num}.jpg"
 
 
 
