@@ -14,7 +14,7 @@ Two environment variables control where the spider reads the product links and w
 Activate your environment and run the spider:
 
 ```bash
-scrapy crawl csv_image_spider
+scrapy crawl ebay_V1
 ```
 
 Images are saved inside `IMAGES_STORE` grouped by their `SW_Code`.
