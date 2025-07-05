@@ -1,69 +1,36 @@
 # -*- coding: utf-8 -*-
-
-# Define your item pipelines here
-#
-# Don't forget to add your pipeline to the ITEM_PIPELINES setting
-# See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-
-
-import scrapy
+import os
+from scrapy import Request
 from scrapy.pipelines.images import ImagesPipeline
-from scrapy.http.request import Request
 
-
-class customImagePipeline(ImagesPipeline):  
-    prod_ids = []
+class EbayImagesPipeline(ImagesPipeline):
+    """
+    Custom ImagesPipeline to download images and organize them under
+    IMAGES_STORE/<sw_code>/<sw_code>_<index>.<ext>
+    """
 
     def get_media_requests(self, item, info):
-        data = item #item.get('data')
-        
-        urls = item['images_url']
-
-        dir_id = data['prod_id']
-        for File_number, url in enumerate(urls):
+        """
+        For each image URL, send a request carrying sw_code and sequential order.
+        """
+        sw_code = item.get('sw_code')
+        for idx, url in enumerate(item.get('image_urls', []), start=1):
             yield Request(
-                url=url,
-                # data=item["data"],
-                meta={'File_number': File_number,
-                        'dir': str(dir_id),
-                        # 'data': item.get('data'),
+                url,
+                meta={
+                    'sw_code': sw_code,
+                    'order': idx
                 }
+            )
 
-
-            # meta={'dir': item.get('Dir namenumber')}
-            
-        )
-        
-    
     def file_path(self, request, response=None, info=None):
-        sw = request.meta.get('dir')
-        num = request.meta.get('File_number') + 1
-        return f"{sw}/SW{sw}_{num}.jpg"
-
-
-
-
-
-
-
-    # def get_media_requests(self, item, info):
-    #     yield Request(
-    #         url=item["Image Url"],
-    #         # data=item["data"],
-    #         meta={'File_number': item.get('File number'),
-    #                 'dir': item.get('Dir name'),
-    #                 # 'data': item.get('data'),
-                    
-
-    #         }
-
-
-    #         # meta={'dir': item.get('Dir namenumber')}
-            
-    #     )
-    
-    # def file_path(self, request, response=None, info=None):
-    #     file_name = request.meta.get('File_number')
-    #     dir_name = request.meta.get('dir')
-        
-    #     return f"Images/{dir_name}/{file_name}.jpg"
+        """
+        Compute file path: <sw_code>/<sw_code>_<order>.<extension>
+        """
+        sw_code = request.meta.get('sw_code')
+        order   = request.meta.get('order')
+        # Extract extension (without query string)
+        ext = os.path.splitext(request.url)[1].split('?')[0] or '.jpg'
+        # Build filename and relative path
+        filename = f"{sw_code}_{order}{ext}"
+        return f"{sw_code}/{filename}"
