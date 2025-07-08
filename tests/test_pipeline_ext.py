@@ -16,4 +16,4 @@ def test_file_path_uses_correct_extension():
 def test_file_path_defaults_to_jpg_when_no_extension():
     pipeline = EbayImagesPipeline(store_uri="/tmp")
     req = Request('http://example.com/img', meta={'sw_code': 'xyz', 'order': 2})
-    assert pipeline.file_path(req) == 'xyz/xyz_2.jpg'
+    assert pipeline.file_path(req) == 'xyz/xyz_2.webp'

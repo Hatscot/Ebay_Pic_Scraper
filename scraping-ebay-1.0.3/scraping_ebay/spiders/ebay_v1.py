@@ -5,7 +5,7 @@ import re
 from scrapy.utils.project import get_project_settings
 
 class EbayV1Spider(scrapy.Spider):
-    name = "ebay_v1"
+    name = "EbayV1Spider"
 
     # Browser-ähnliche Headers, um Bot-Erkennung zu vermeiden
     default_headers = {

@@ -26,18 +26,18 @@ USER_AGENT = (
     'AppleWebKit/537.36 (KHTML, like Gecko) '
     'Chrome/84.0.4147.125 Safari/537.36'
 )
-COOKIES_ENABLED = True
+COOKIES_ENABLED = False
 
 # robots.txt ignorieren (oder True, wenn gewünscht)
 ROBOTSTXT_OBEY = False
 
 # Concurrency & Delay
-CONCURRENT_REQUESTS = 2
-DOWNLOAD_DELAY = 2
+CONCURRENT_REQUESTS = 1
+DOWNLOAD_DELAY = 4
 RANDOMIZE_DOWNLOAD_DELAY = True
 
 # Timeouts & Retries
-DOWNLOAD_TIMEOUT = 15
+DOWNLOAD_TIMEOUT = 25
 RETRY_ENABLED = True
 RETRY_TIMES = 5
 RETRY_HTTP_CODES = [500, 502, 503, 504, 408, 522, 524]
@@ -1059,14 +1059,14 @@ ROTATING_PROXY_LIST = [
     # weitere echte Proxies hinzufügen
 ]
 # Anzahl der Versuche pro Proxy bevor gewechselt wird
-ROTATING_PROXY_PAGE_RETRY_TIMES = 2
+ROTATING_PROXY_PAGE_RETRY_TIMES = 3
 # Optional: wie lange ein toter Proxy pausiert
-ROTATING_PROXY_BACKOFF_BASE = 300  # Sekunden
+ROTATING_PROXY_BACKOFF_BASE = 470  # Sekunden
 
 # AutoThrottle für dynamische Anpassung
 AUTOTHROTTLE_ENABLED = True
 AUTOTHROTTLE_START_DELAY = 1
-AUTOTHROTTLE_MAX_DELAY = 10
+AUTOTHROTTLE_MAX_DELAY = 15
 AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
 AUTOTHROTTLE_DEBUG = False
 
