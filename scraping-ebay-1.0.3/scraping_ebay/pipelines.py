@@ -33,7 +33,9 @@ class EbayImagesPipeline(ImagesPipeline):
         """
         sw_code = request.meta.get('sw_code')
         order   = request.meta.get('order')
-        ext = os.path.splitext(request.url)[1].split('?')[0] or '.jpg' , '.webp'
+        ext = os.path.splitext(request.url)[1].split('?')[0]
+        if not ext:
+            ext = '.jpg'
         filename = f"{sw_code}_{order}{ext}"
         return f"{sw_code}/{filename}"
 
