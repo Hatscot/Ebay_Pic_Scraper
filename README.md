@@ -44,6 +44,8 @@ Activate your environment and run the spider:
 scrapy crawl ebay_v1
 ```
 
+If something doesn't work as expected, check the debug log for details.
+
 
 Issue:
 Images are  should saved inside `IMAGES_STORE` grouped by their `SW_Code`but it dont happend it just Find Images but dont save it.

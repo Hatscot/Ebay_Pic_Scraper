@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import csv
+import logging
 import pandas as pd
 from scrapy import Request
 from scrapy.pipelines.images import ImagesPipeline
@@ -12,6 +13,12 @@ class EbayImagesPipeline(ImagesPipeline):
     IMAGES_STORE/<sw_code>/<sw_code>_<index>.<ext>,
     and update the CSV Downloaded-Flag.
     """
+
+    def __init__(self, store_uri, *args, **kwargs):
+        """Initialize pipeline and log the images store path."""
+        self.logger = logging.getLogger(self.__class__.__name__)
+        super().__init__(store_uri, *args, **kwargs)
+        self.logger.info("IMAGES_STORE=%s", store_uri)
 
     def get_media_requests(self, item, info):
         """
@@ -43,6 +50,12 @@ class EbayImagesPipeline(ImagesPipeline):
         """
         Called when all image downloads finish. Update CSV 'Downloaded' flag.
         """
+        for success, info_dict in results:
+            if success:
+                self.logger.info("Stored image at %s", info_dict.get('path'))
+            else:
+                self.logger.error("Image download failed: %s", info_dict)
+
         # Determine if at least one image was downloaded successfully
         success = any(x[0] for x in results)
         if success:
