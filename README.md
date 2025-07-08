@@ -11,38 +11,37 @@ Two environment variables control where the spider reads the product links and w
 
 The default paths above are Windows-style and may not exist on your machine. Set `IMAGES_STORE` to a real directory before running the spider.
 
-### Setting `IMAGES_STORE`
 
-- **Windows** (Command Prompt)
 
-  ```cmd
-  set IMAGES_STORE=C:\path\to\Ebay_pics
-  ```
 
-```Python Console
-  import os
-  os.environ["IMAGES_STORE"] = r"C:\path\to\Ebay_pics"   # Windows example
-
-          # or
-
- os.environ["IMAGES_STORE"] = "/path/to/Ebay_pics"      # Linux/macOS example
-```
-
-  
-
-- **Linux/macOS**
-
-  ```bash
-  export IMAGES_STORE=/path/to/Ebay_pics
-  ```
 
 ## Usage
 
 Activate your environment and run the spider:
 
-```bash
-scrapy crawl ebay_v1
+```Python Shell (Setup Save Path)
+os.environ["IMAGES_STORE"] = r"C:\path\to\Ebay_pics"   # Windows-Beispiel
+# oder
+os.environ["IMAGES_STORE"] = "/path/to/Ebay_pics"      # Linux/macOS
+
 ```
+
+To Start the Spider bot run this above, IMPORTANT The first command have to be executed if not it would not work
+
+``` Python Shell
+from scrapy.crawler import CrawlerProcess
+from scrapy.utils.project import get_project_settings
+from scraping_ebay.spiders.ebay_v1 import EbayV1Spider
+import os
+
+os.environ["IMAGES_STORE"] = r"C:\path\to\Ebay_pics"
+
+process = CrawlerProcess(get_project_settings())
+process.crawl(EbayV1Spider)
+process.start()
+```
+
+
 
 If something doesn't work as expected, check the debug log for details.
 
