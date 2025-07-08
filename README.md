@@ -18,32 +18,35 @@ The default paths above are Windows-style and may not exist on your machine. Set
 ## Usage
 
 Activate your environment and run the spider:
-Python Shell (Setup Save Path) Note This command is not important 
-```
-import os
-os.environ["IMAGES_STORE"] = r"C:\Users\Fabian\PycharmProjects\Ebay_Pic_Scraper\Ebay_pics"
 
-```
-
-To Start the Spider bot run this above, IMPORTANT The first command have to be executed if not it would not work
 
 Python Shell
 ``` 
+import os
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from scraping_ebay.spiders.ebay_v1 import EbayV1Spider
-import os
 
-os.environ["IMAGES_STORE"] = r"C:\path\to\Ebay_pics"
+# Setze das Verzeichnis für die Bilder
+os.environ["IMAGES_STORE"] = r"C:\Users\Fabian\PycharmProjects\Ebay_Pic_Scraper\Ebay_pics"
 
-process = CrawlerProcess(get_project_settings())
+# Optional: aktuelles Verzeichnis explizit setzen, falls du das Script außerhalb startest
+#os.chdir(r"C:\Users\Fabian\PycharmProjects\Ebay_Pic_Scraper\scraping-ebay-1.0.3\scraping_ebay\spiders")
+
+# Projekt-Settings laden
+settings = get_project_settings()
+process = CrawlerProcess(settings)
+
+# Spider über die Klasse starten
 process.crawl(EbayV1Spider)
 process.start()
 ```
 
 
 Issues / should be fix:
-- Its not possibel to get Data from ebay beacause the class "EbayImagesPipeline(ImagesPipeline)" is empty.
+- There is somthing wrong with the Start Skript for the spider under ##Usage
 
+Note 
+Ignore the Project.zip thats just a old version and has nothing to do with all of the rest files in this repos
 
 
