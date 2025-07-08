@@ -130,7 +130,7 @@ class EbaySpider(scrapy.Spider):
 
 		for link in links:
 			url=link.get()
-			if any(extension in url for extension in [".webp"]):
+			if any(extension in url for extension in [".jpg"]):
 				if "s-l64" in url:
 					url=url.replace("s-l64",img_size)
 					if url not in linklist:

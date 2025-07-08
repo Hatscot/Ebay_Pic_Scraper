@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-BOT_NAME = 'scraping_ebay'
+BOT_NAME = 'ebay_v1'
 
 SPIDER_MODULES = ['scraping_ebay.spiders']
 NEWSPIDER_MODULE = 'scraping_ebay.spiders'

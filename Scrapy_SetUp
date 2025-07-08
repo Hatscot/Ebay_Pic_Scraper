@@ -41,12 +41,12 @@ from scraping_ebay.spiders.ebay_v1 import EbayV1Spider
 os.environ["IMAGES_STORE"] = r"C:\Users\Fabian\PycharmProjects\Ebay_Pic_Scraper\Ebay_pics"
 
 # Optional: aktuelles Verzeichnis explizit setzen, falls du das Script außerhalb startest
-#os.chdir(r"C:\Users\Fabian\PycharmProjects\Ebay_Pic_Scraper\scraping-ebay-1.0.3\scraping_ebay\spiders")
+#os.chdir(r"C:\Users\Fabian\PycharmProjects\Ebay_Pic_Scraper\scraping-ebay-1.0.3\scraping_ebay")
 
 # Projekt-Settings laden
 settings = get_project_settings()
 process = CrawlerProcess(settings)
 
 # Spider über die Klasse starten
-process.crawl(EbayV1Spider)
+process.crawl(ebay_v1)
 process.start()
