@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 import os
+import csv
+import pandas as pd
 from scrapy import Request
 from scrapy.pipelines.images import ImagesPipeline
+from scrapy.utils.project import get_project_settings
 
 class EbayImagesPipeline(ImagesPipeline):
     """
-    Custom ImagesPipeline to download images and organize them under
-    IMAGES_STORE/<sw_code>/<sw_code>_<index>.<ext>
+    Custom ImagesPipeline to download images, organize them under
+    IMAGES_STORE/<sw_code>/<sw_code>_<index>.<ext>,
+    and update the CSV Downloaded-Flag.
     """
 
     def get_media_requests(self, item, info):
@@ -29,8 +33,37 @@ class EbayImagesPipeline(ImagesPipeline):
         """
         sw_code = request.meta.get('sw_code')
         order   = request.meta.get('order')
-        # Extract extension (without query string)
-        ext = os.path.splitext(request.url)[1].split('?')[0] or '.jpg'
-        # Build filename and relative path
+        ext = os.path.splitext(request.url)[1].split('?')[0] or '.jpg' , '.webp'
         filename = f"{sw_code}_{order}{ext}"
         return f"{sw_code}/{filename}"
+
+    def item_completed(self, results, item, info):
+        """
+        Called when all image downloads finish. Update CSV 'Downloaded' flag.
+        """
+        # Determine if at least one image was downloaded successfully
+        success = any(x[0] for x in results)
+        if success:
+            settings = get_project_settings()
+            csv_path = settings.get('CSV_LINKS_PATH')
+            # Read CSV, update Downloaded field for this sw_code
+            try:
+                df = pd.read_csv(csv_path, dtype=str)
+                col = None
+                # find Downloaded column name
+                for c in ['Downloaded', 'downloaded']:
+                    if c in df.columns:
+                        col = c
+                        break
+                if col is None:
+                    # add new column
+                    df['Downloaded'] = ''
+                    col = 'Downloaded'
+                # set flag
+                mask = df.get('SW_Code', df.get('SW_code', df.get('sw_code')))==item['sw_code']
+                df.loc[mask, col] = '1'
+                # write back without index
+                df.to_csv(csv_path, index=False)
+            except Exception as e:
+                info.spider.logger.error(f"Failed to update CSV for {item['sw_code']}: {e}")
+        return item
