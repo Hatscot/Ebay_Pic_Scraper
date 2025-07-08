@@ -6,8 +6,8 @@ This project contains a small Scrapy setup used to download product images from 
 
 Two environment variables control where the spider reads the product links and where it stores images:
 
-- `CSV_LINKS_PATH` – path to the CSV file with the columns `SW_Code` and `Item_Link`. It defaults to `../EBay_links_output.csv`.
-- `IMAGES_STORE` – directory that receives the downloaded images. It defaults to `./downloaded_images`.
+- `CSV_LINKS_PATH` – path to the CSV file with the columns `SW_Code` and `Item_Link`. It defaults to `D:\Ebay_Scraper\EBay_links_output.csv`.
+- `IMAGES_STORE` – directory that receives the downloaded images. It defaults to `D:\Ebay_Scraper\Ebay_pics`.
 
 ## Usage
 

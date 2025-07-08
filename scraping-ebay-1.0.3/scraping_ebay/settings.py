@@ -13,10 +13,7 @@ CSV_LINKS_PATH = os.getenv(
 )
 
 # Basis-Verzeichnis zum Speichern heruntergeladener Bilder
-IMAGES_STORE = os.getenv(
-    'file_path',
-    r'D:\Ebay_Scraper\Ebay_pics'
-)
+IMAGES_STORE = os.getenv('IMAGES_STORE', r'D:\Ebay_Scraper\Ebay_pics')
 
 # Aktiviere deine Bilder-Pipeline
 ITEM_PIPELINES = {
