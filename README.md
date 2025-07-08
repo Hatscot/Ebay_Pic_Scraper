@@ -19,6 +19,17 @@ The default paths above are Windows-style and may not exist on your machine. Set
   set IMAGES_STORE=C:\path\to\Ebay_pics
   ```
 
+```Python Console
+  import os
+  os.environ["IMAGES_STORE"] = r"C:\path\to\Ebay_pics"   # Windows example
+
+          # or
+
+ os.environ["IMAGES_STORE"] = "/path/to/Ebay_pics"      # Linux/macOS example
+```
+
+  
+
 - **Linux/macOS**
 
   ```bash
