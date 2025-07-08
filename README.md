@@ -18,17 +18,17 @@ The default paths above are Windows-style and may not exist on your machine. Set
 ## Usage
 
 Activate your environment and run the spider:
-
-```Python Shell (Setup Save Path)
-os.environ["IMAGES_STORE"] = r"C:\path\to\Ebay_pics"   # Windows-Beispiel
-# oder
-os.environ["IMAGES_STORE"] = "/path/to/Ebay_pics"      # Linux/macOS
+Python Shell (Setup Save Path) Note This command is not important 
+```
+import os
+os.environ["IMAGES_STORE"] = r"C:\Users\Fabian\PycharmProjects\Ebay_Pic_Scraper\Ebay_pics"
 
 ```
 
 To Start the Spider bot run this above, IMPORTANT The first command have to be executed if not it would not work
 
-``` Python Shell
+Python Shell
+``` 
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 from scraping_ebay.spiders.ebay_v1 import EbayV1Spider
