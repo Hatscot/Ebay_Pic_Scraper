@@ -19,11 +19,7 @@ The default paths above are Windows-style and may not exist on your machine. Set
 
 Activate your environment, set the paths and launch ``run_spider.py``:
 
-```bash
-export CSV_LINKS_PATH=/path/to/EBay_links_output.csv
-export IMAGES_STORE=/path/to/Ebay_pics
-python run_spider.py
-```
+run the spider with the scrpy crawl command
 
 
 
