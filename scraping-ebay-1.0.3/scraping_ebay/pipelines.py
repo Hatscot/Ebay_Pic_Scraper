@@ -47,7 +47,7 @@ class EbayImagesPipeline(ImagesPipeline):
                 }
             )
 
-    def file_path(self, request, response=None, info=None):
+    def file_path(self, request, response=None, info=None, *, item=None):
         """
         Compute file path: <sw_code>/<sw_code>_<order>.<extension>
         """
