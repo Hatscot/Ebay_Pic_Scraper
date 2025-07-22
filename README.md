@@ -17,9 +17,9 @@ The default paths above are Windows-style and may not exist on your machine. Set
 
 ## Usage
 
-Activate your environment, set the paths and launch ``run_spider.py``:
+Activate your environment, set the paths where the Spider is
 
-run the spider with the scrpy crawl command
+run the spider with the scrpy crawl command and you fine
 
 
 
